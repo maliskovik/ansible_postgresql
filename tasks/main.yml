@@ -1,0 +1,4 @@
+---
+# Main postgresql tasks file
+
+- include: postgresql.yml

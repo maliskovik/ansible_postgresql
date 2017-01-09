@@ -1,0 +1,13 @@
+---
+# Main handlers file
+- name: Start postgresql
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+    enalbed: yes

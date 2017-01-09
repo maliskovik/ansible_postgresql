@@ -1,0 +1,4 @@
+---
+# Postgres role dependencies
+dependencies:
+  - role: tls

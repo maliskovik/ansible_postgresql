@@ -1,0 +1,41 @@
+---
+# Postgresql tasks file
+
+- name: Add postgresql repo key
+  apt_key:
+    url: "{{ postgresql_repo_key }}"
+    state: present
+
+- name: Add postgresql repo
+  apt_repository:
+    repo: "{{ postgresql_repo }}"
+    state: present
+    mode: 0644
+
+- name: Install postgresql
+  apt:
+    name: "{{ item }}"
+    state: latest
+    force: yes
+  with_items:
+    - "postgresql-{{ postgresql_version }}"
+    - postgresql-contrib
+  notify: Start postgresql
+
+- name: Configure postgresql access
+  copy:
+    src: pg_hba.conf
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf"
+    owner: postgres
+    group: postgres
+    mode: 0600
+  notify: Restart postgresql
+
+- name: Add postgresql config
+  template:
+    src: postgresql_config
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
+    owner: postgres
+    group: postgres
+    mode: 0644
+  notify: Restart postgresql
