@@ -10,4 +10,4 @@
   service:
     name: postgresql
     state: restarted
-    enalbed: yes
+    enabled: yes
