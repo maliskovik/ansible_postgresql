@@ -1,4 +1,4 @@
-listen_addresses = '*'
+listen_addresses = '{{ postgresql_listen_address }}'
 port = {{ postgresql_port }}
 unix_socket_directories = '/var/run/postgresql'
 max_connections = 100
