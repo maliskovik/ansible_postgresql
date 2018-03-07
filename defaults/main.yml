@@ -3,7 +3,7 @@ postgresql_repo_key: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
 postgresql_locale: "en_US.UTF-8"
 postgresql_ssl_cert: "{{ cert_directory }}/postgresql.crt"
 posgresql_ssl_key: "{{ cert_directory }}/postgresql.key"
-postgresql_version: "9.6"
+postgresql_version: "10"
 postgresql_port: 5432
 postgresql_timezone: "UTC"
 postgresql_listen_address: "127.0.0.1"
