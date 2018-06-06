@@ -1,4 +1,7 @@
 ---
 # Main postgresql tasks file
 
-- include: postgresql.yml
+- include: postgresql-ubuntu.yml
+  when: ansible_os_family == "Debian"
+- include: postgresql-archlinux.yml
+  when: ansible_os_family == "Archlinux"
