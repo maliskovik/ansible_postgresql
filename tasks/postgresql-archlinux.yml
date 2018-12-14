@@ -1,11 +1,9 @@
 ---
 - name: Install postgresql
   pacman:
-    name: "{{ item }}"
+    name: "postgres"
     state: latest
     force: yes
-  with_items:
-    - postgres
   notify: Start postgresql
 
 - name: Configure postgresql access

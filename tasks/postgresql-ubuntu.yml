@@ -14,12 +14,9 @@
 
 - name: Install postgresql
   apt:
-    name: "{{ item }}"
+    name: "['postgresql-{{ postgresql_version }}', 'postgresql-contrib']"
     state: latest
     force: yes
-  with_items:
-    - "postgresql-{{ postgresql_version }}"
-    - postgresql-contrib
   notify: Start postgresql
 
 - name: Configure postgresql access
