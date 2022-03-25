@@ -1,17 +1,59 @@
+#------------------------------------------------------------------------------
+# FILE LOCATIONS
+#------------------------------------------------------------------------------
+data_directory = '/var/lib/postgresql/{{ postgresql_version }}/main'
+hba_file = '/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf'
+ident_file = '/etc/postgresql/{{ postgresql_version }}/main/pg_ident.conf'
+external_pid_file = '/var/run/postgresql/{{ postgresql_version }}-main.pid'
+
+#------------------------------------------------------------------------------
+# CONNECTIONS AND AUTHENTICATION
+#------------------------------------------------------------------------------
+
 listen_addresses = '{{ postgresql_listen_address }}'
 port = {{ postgresql_port }}
 unix_socket_directories = '/var/run/postgresql'
 max_connections = 100
+
+# - SSL -
+
 ssl = on
 ssl_cert_file = '{{ postgresql_ssl_cert }}'
 ssl_key_file = '{{ posgresql_ssl_key }}'
+
+#------------------------------------------------------------------------------
+# RESOURCE USAGE (except WAL)
+#------------------------------------------------------------------------------
+
 shared_buffers = 128MB
 dynamic_shared_memory_type = posix
+
+#------------------------------------------------------------------------------
+# REPORTING AND LOGGING
+#------------------------------------------------------------------------------
+
 log_destination = 'syslog'
 syslog_facility = 'LOCAL0'
-syslog_ident = 'postgres/-postgresql-hostname-'
+syslog_ident = 'postgres/{{ inventory_hostname }}'
 log_error_verbosity = terse
 log_timezone = 'localtime'
+
+#------------------------------------------------------------------------------
+# PROCESS TITLE
+#------------------------------------------------------------------------------
+
+cluster_name = '14/main'
+
+
+#------------------------------------------------------------------------------
+# STATISTICS
+#------------------------------------------------------------------------------
+stats_temp_directory = '/var/run/postgresql/14-main.pg_stat_tmp'
+
+#------------------------------------------------------------------------------
+# CLIENT CONNECTION DEFAULTS
+#------------------------------------------------------------------------------
+
 datestyle = 'iso, dmy'
 timezone = '{{ postgresql_timezone }}'
 lc_messages = '{{ postgresql_locale }}'
@@ -19,7 +61,8 @@ lc_monetary = '{{ postgresql_locale }}'
 lc_numeric = '{{ postgresql_locale }}'
 lc_time = '{{ postgresql_locale }}'
 default_text_search_config = 'pg_catalog.simple'
-data_directory = '/var/lib/postgresql/{{ postgresql_version }}/main'
-hba_file = '/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf'
-ident_file = '/etc/postgresql/{{ postgresql_version }}/main/pg_ident.conf'
-external_pid_file = '/var/run/postgresql/{{ postgresql_version }}-main.pid'
+
+#------------------------------------------------------------------------------
+# CONFIG FILE INCLUDES
+#------------------------------------------------------------------------------
+include_dir = 'conf.d'
