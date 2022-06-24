@@ -5,3 +5,5 @@
   when: ansible_os_family == "Debian"
 - include: postgresql-archlinux.yml
   when: ansible_os_family == "Archlinux"
+- include: postgresql-redhat.yml
+  when: ansible_os_family == "RedHat"

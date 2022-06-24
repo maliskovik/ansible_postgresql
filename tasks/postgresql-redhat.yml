@@ -1,0 +1,35 @@
+---
+- name: Install postgresql
+  yum:
+    name: "postgres"
+    state: latest
+    force: yes
+  notify: Start postgresql
+
+- name: Make postgres config dir
+  file:
+    path: "/etc/postgresql/{{ postgresql_version }}/main"
+    state: directory
+
+- name: Make postgres config main dir
+  file:
+    path: "/etc/postgresql/{{ postgresql_version }}/main"
+    state: directory
+
+- name: Configure postgresql access
+  copy:
+    src: pg_hba.conf
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/pg_hba.conf"
+    owner: postgres
+    group: postgres
+    mode: 0600
+  notify: Restart postgresql
+
+- name: Add postgresql config
+  template:
+    src: postgresql_config
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
+    owner: postgres
+    group: postgres
+    mode: 0644
+  notify: Restart postgresql
