@@ -3,7 +3,7 @@ postgresql_repo_key: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
 postgresql_locale: "en_US.UTF-8"
 postgresql_ssl_cert: "/etc/ssl/certs/ssl-cert-snakeoil.pem"
 posgresql_ssl_key: "/etc/ssl/private/ssl-cert-snakeoil.key"
-postgresql_version: "14"
+postgresql_version: "15"
 postgresql_port: 5432
 postgresql_timezone: "UTC"
 postgresql_listen_address: "127.0.0.1"
