@@ -55,8 +55,3 @@ lc_monetary = '{{ postgresql_locale }}'
 lc_numeric = '{{ postgresql_locale }}'
 lc_time = '{{ postgresql_locale }}'
 default_text_search_config = 'pg_catalog.simple'
-
-#------------------------------------------------------------------------------
-# CONFIG FILE INCLUDES
-#------------------------------------------------------------------------------
-include_dir = 'conf.d'
