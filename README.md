@@ -6,7 +6,7 @@ Installs and configuires postgresql.
 
 * postgresql_port - port postgresql will listen on
 * postgresql_ssl_cert - location of the postgresql cert file(on remote)
-* posgresql_ssl_key - location of the postgresql key file(on remote)
+* postgresql_ssl_key - location of the postgresql key file(on remote)
 * postgresql_locale - locale to use on postgresql
 * postgresql_version - Version of postgresql to install
 * postgresql_repo - repository to use for this install

@@ -21,6 +21,13 @@
     force: yes
   notify: Start postgresql
 
+- name: Install additional postgresql packages
+  apt:
+    name: "{{ postgresql_additional_packages }}"
+    state: latest
+    force: yes
+  when: postgresql_additional_packages is defined
+
 - name: Configure postgresql access
   copy:
     src: pg_hba.conf

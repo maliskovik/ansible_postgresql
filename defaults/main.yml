@@ -2,10 +2,17 @@ postgresql_repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.co
 postgresql_repo_key: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
 postgresql_locale: "en_US.UTF-8"
 postgresql_ssl_cert: "/etc/ssl/certs/ssl-cert-snakeoil.pem"
-posgresql_ssl_key: "/etc/ssl/private/ssl-cert-snakeoil.key"
-postgresql_version: "16"
+postgresql_ssl_key: "/etc/ssl/private/ssl-cert-snakeoil.key"
+postgresql_version: "17"
 postgresql_port: 5432
 postgresql_timezone: "UTC"
 postgresql_listen_address: "127.0.0.1"
 postgresql_effective_cache_size: "4GB"
 postgresql_effective_io_concurrency: 200
+postgresql_shared_buffers: "128MB"
+postgresql_wal_buffers: "16MB"
+postgresql_work_mem: "4MB"
+postgresql_max_wal_size: "1GB"
+min_wal_size: "80MB"
+postgresql_max_worker_processes: 8
+postgresql_log_line_prefix: '%t [%p]: [%l-1] user=%u,db=%d '
