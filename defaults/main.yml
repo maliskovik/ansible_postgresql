@@ -1,3 +1,4 @@
+postgresql_install: "server"
 postgresql_repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename }}-pgdg main"
 postgresql_repo_key: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
 postgresql_locale: "en_US.UTF-8"
@@ -16,3 +17,4 @@ postgresql_max_wal_size: "1GB"
 min_wal_size: "80MB"
 postgresql_max_worker_processes: 8
 postgresql_log_line_prefix: '%t [%p]: [%l-1] user=%u,db=%d '
+postgresql_replication: false

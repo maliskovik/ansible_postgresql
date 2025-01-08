@@ -12,7 +12,7 @@
     state: present
     mode: 0644
 
-- name: Install postgresql
+- name: Install postgresql server
   apt:
     name:
       - "postgresql-{{ postgresql_version }}"
@@ -20,13 +20,24 @@
     state: latest
     force: yes
   notify: Start postgresql
+  when: postgresql_install == "server"
+
+- name: Install postgresql client
+  apt:
+    name:
+      - "postgresql-client-{{ postgresql_version }}"
+    state: latest
+    force: yes
+  notify: Start postgresql
+  when: postgresql_install == "client"
 
 - name: Install additional postgresql packages
   apt:
-    name: "{{ postgresql_additional_packages }}"
+    name: "{{ postgresql_additional_packages|default([]) }}"
     state: latest
     force: yes
   when: postgresql_additional_packages is defined
+  when: postgresql_install == "server"
 
 - name: Configure postgresql access
   copy:
@@ -36,6 +47,7 @@
     group: postgres
     mode: 0600
   notify: Restart postgresql
+  when: postgresql_install == "server"
 
 - name: Add postgresql config
   template:
@@ -45,3 +57,4 @@
     group: postgres
     mode: 0644
   notify: Restart postgresql
+  when: postgresql_install == "server"

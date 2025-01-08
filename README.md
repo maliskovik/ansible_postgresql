@@ -3,7 +3,7 @@ Postgresql ansible role.
 Installs and configuires postgresql.
 
 # Optional variables
-
+* postgresql_install - server or client (only) install.
 * postgresql_port - port postgresql will listen on
 * postgresql_ssl_cert - location of the postgresql cert file(on remote)
 * postgresql_ssl_key - location of the postgresql key file(on remote)
