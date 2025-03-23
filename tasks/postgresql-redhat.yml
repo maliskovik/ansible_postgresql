@@ -1,10 +1,29 @@
 ---
+- name: Add postgresql repo
+  dnf:
+    name: "{{ postgres_redhat_repo_package }}"
+    state: present
+    disable_gpg_check: true
+
 - name: Install postgresql
-  yum:
-    name: "postgres"
+  dnf:
+    name:
+      - "postgresql{{ postgresql_version }}-server"
+      - "postgresql{{ postgresql_version }}"
     state: latest
-    force: yes
   notify: Start postgresql
+
+- name: Create psql symlink
+  file:
+    src: "/usr/pgsql-{{ postgresql_version }}/bin/psql"
+    dest: "/usr/bin/psql"
+    state: link
+
+- name: Install optional postgresql packages
+  dnf:
+    name: "{{ postgres_redhat_optional_packages }}"
+    state: latest
+  when: postgresql_redhat_optional_packages is defined
 
 - name: Make postgres config dir
   file:
@@ -23,7 +42,7 @@
     owner: postgres
     group: postgres
     mode: 0600
-  notify: Restart postgresql
+  notify: Restart postgresql - redhat
 
 - name: Add postgresql config
   template:
@@ -32,4 +51,24 @@
     owner: postgres
     group: postgres
     mode: 0644
-  notify: Restart postgresql
+  notify: Restart postgresql - redhat
+
+- name: Check for existing cluster
+  stat:
+    path: "/var/lib/pgsql/{{ postgresql_version }}/data"
+  register: postgresql_cluster_exists
+
+- name: Print cluster status
+  debug:
+    msg: "Cluster exists: {{ postgresql_cluster_exists.stat.exists }}"
+  when: postgresql_cluster_exists.stat.exists
+
+- name: Initialize postgresql cluster
+  command: "/usr/pgsql-{{ postgresql_version }}/bin/postgresql-{{ postgresql_version }}-setup initdb"
+  when: not postgresql_cluster_exists.stat.exists
+
+- name: Start postgresql
+  systemd:
+    name: postgresql-{{ postgresql_version }}
+    state: started
+    enabled: yes

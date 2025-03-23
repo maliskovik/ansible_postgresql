@@ -11,3 +11,4 @@ Installs and configuires postgresql.
 * postgresql_version - Version of postgresql to install
 * postgresql_repo - repository to use for this install
 * postgresql_repo_key - repository key to use
+* postgresql_redhat_optional_packages - Additional packages to install

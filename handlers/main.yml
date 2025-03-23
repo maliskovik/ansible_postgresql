@@ -11,3 +11,9 @@
     name: postgresql
     state: restarted
     enabled: yes
+
+- name: Restart postgresql - redhat
+  service:
+    name: postgresql-{{ postgresql_version }}
+    state: restarted
+    enabled: yes
